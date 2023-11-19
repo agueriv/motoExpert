@@ -12,6 +12,8 @@
     <a href="{{ url('settings') }}" class="nav-item nav-link"><i class="fa fa-cog me-2"></i>Settings</a>
 @endsection
 
+@include('modal.deleteModal')
+
 @section('content')
     <div class="container-fluid pt-4 px-4">
         <a href="{{ url('.') }}" class="btn p-0"><i class="fa fa-chevron-left me-2"></i>Go home</a>
@@ -71,9 +73,9 @@
                             <td class="actions">
                                 <a href="{{ url('moto/' . $moto->id) }}" class="btn btn-primary">Detail</a>
                                 <a href="{{ url('moto/' . $moto->id . '/edit')}}" class="btn btn-light">Modify</a>
-                                <a data-url="{{ url('moto/' . $moto->id) }}" 
-                                    data-model="{{$moto->model}}" 
-                                    data-brand="{{$moto->brand}}" href="" class="btn btn-warning hrefDelete">Delete</a>
+                                <button data-url="{{ url('moto/' . $moto->id) }}" data-brand="{{ $moto->brand }}" data-model="{{ $moto->model }}" type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteMotoModal">
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                         @endforeach
@@ -91,18 +93,16 @@
 
 @section('scripts')
     <script>
-        const ahrefs = document.querySelectorAll('.hrefDelete');
-        const formDelete = document.getElementById('formDelete');
-        ahrefs.forEach(function(ahref) {
-            ahref.onclick = (e) => {
-                // Cancela el evento anterior de click del enlace para que se ejecute el evento submit
-                e.preventDefault();
-                if(confirm('Are u sure to delete ' + e.target.dataset.brand + ' ' + e.target.dataset.model + '?')) {
-                    let url = e.target.dataset.url;
-                    formDelete.action = url;
-                    formDelete.submit();
-                }
-            };
+        const deleteMotoModal = document.getElementById('deleteMotoModal');
+        const motoName = document.getElementById('motoBrandModel');
+        const formDeleteV3 = document.getElementById('formDelete');
+        
+        deleteMotoModal.addEventListener('show.bs.modal', event => {
+          let motoBranModelName = event.relatedTarget.dataset.brand + ' ' + event.relatedTarget.dataset.model;
+          let url = event.relatedTarget.dataset.url;
+          
+          motoName.innerText = motoBranModelName;
+          formDeleteV3.action = url;
         });
     </script>
 @endsection
