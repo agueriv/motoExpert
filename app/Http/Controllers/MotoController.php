@@ -21,7 +21,7 @@ class MotoController extends Controller
      */
     public function create()
     {
-        return view('moto.create');
+        return view('moto.create', ['licenses' => ['AM', 'A1', 'A2', 'A']]);
     }
 
     /**
@@ -116,7 +116,7 @@ class MotoController extends Controller
             $moto->delete();
             return redirect('moto')->with(['message'=> 'The moto has been deleted.']);
         } catch (\Exception $e) {
-            return back()->withErrors(['message' => 'Your moto has not been updated.']);
+            return redirect('moto')->withErrors(['message' => 'Your moto has not been deleted.']);
         }
     }
 }

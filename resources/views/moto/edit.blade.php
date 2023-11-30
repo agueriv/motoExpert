@@ -70,6 +70,10 @@
                 <label for="prize">Prize</label>
             </div>
             <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="matricula" name="matricula" placeholder="Moto registration number" maxlength="10" value="{{old('matricula', $moto->matricula)}}">
+                <label for="matricula">Moto registration number</label>
+            </div>
+            <div class="form-floating mb-3">
                 <button type="submit" class="btn btn-success mt-3">Modify model</button>
             </div>
         </form>

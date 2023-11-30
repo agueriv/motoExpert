@@ -48,7 +48,7 @@
                         $selected = false;
                     ?>
                     <option selected>Select one</option>
-                    @foreach($enum as $license)
+                    @foreach($licenses as $license)
                         @if(old('license') == $license)
                             <option value="{{$license}}" selected>{{$license}}</option>
                         @else
@@ -72,6 +72,10 @@
             <div class="form-floating mb-3">
                 <input type="number" class="form-control" id="prize" name="prize" min="1" step=".01" placeholder="Prize" value="{{old('prize')}}">
                 <label for="prize">Prize</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="matricula" name="matricula" placeholder="Moto registration number" maxlength="10" value="{{old('matricula')}}">
+                <label for="matricula">Moto registration number</label>
             </div>
             <div class="form-floating mb-3">
                 <button type="submit" class="btn btn-success mt-3"><i class="fa fa-plus me-2"></i>Add model</button>

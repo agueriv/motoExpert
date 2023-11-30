@@ -10,5 +10,5 @@ class Moto extends Model
     use HasFactory;
     
     protected $table = 'moto';
-    protected $fillable = ['brand', 'model', 'year', 'displacement', 'power', 'license', 'weight', 'type', 'prize'];
+    protected $fillable = ['brand', 'model', 'year', 'displacement', 'power', 'license', 'weight', 'type', 'prize', 'matricula'];
 }

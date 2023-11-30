@@ -9,6 +9,8 @@
     <a href="{{ url('settings') }}" class="nav-item nav-link"><i class="fa fa-cog me-2"></i>Settings</a>
 @endsection
 
+@include('modal.deleteModal')
+
 @section('content')
 <div class="container-fluid pt-4 px-4">
     <a href="{{ url('.') }}" class="btn p-0"><i class="fa fa-chevron-left me-2"></i>Go home</a>
@@ -110,11 +112,43 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-4 col-xl-4 mx-auto">
+            <div class="bg-secondary rounded d-flex align-items-center p-4">
+                <i class="fa fa-id-badge fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Moto registration number</p>
+                    <h6 class="mb-0">{{ $moto->matricula }}&nbsp;</h6>
+                </div>
+            </div>
+        </div>
         
         <div class="container-fluid text-center">
             <a href="{{ url('moto/' . $moto->id . '/edit')}}" class="btn btn-primary">Modify</a>
+            <button data-url="{{ url('moto/' . $moto->id) }}" data-brand="{{ $moto->brand }}" data-model="{{ $moto->model }}" type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#deleteMotoModal">
+                Delete
+            </button>
         </div>
     </div>
+    <form id="formDelete" name="formDelete" action="{{ url('') }}" method="post">
+            @csrf
+            @method('delete')
+    </form>
 </div>
 
+@endsection
+
+@section('scripts')
+    <script>
+        const deleteMotoModal = document.getElementById('deleteMotoModal');
+        const motoName = document.getElementById('motoBrandModel');
+        const formDeleteV3 = document.getElementById('formDelete');
+        
+        deleteMotoModal.addEventListener('show.bs.modal', event => {
+          let motoBranModelName = event.relatedTarget.dataset.brand + ' ' + event.relatedTarget.dataset.model;
+          let url = event.relatedTarget.dataset.url;
+          
+          motoName.innerText = motoBranModelName;
+          formDeleteV3.action = url;
+        });
+    </script>
 @endsection

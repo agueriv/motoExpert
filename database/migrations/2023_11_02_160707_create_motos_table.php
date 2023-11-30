@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('weight')->nullable();
             $table->string('type', 25);
             $table->decimal('prize', 10, 2)->nullable();
+            $table->string('matricula', 10)->unique()->nullable();
             $table->timestamps();
         });
     }
